@@ -42,7 +42,7 @@ func main() {
 		os.Exit(1)
 	}
 	if err := db.CreateTablesIfNotExist(); err != nil {
-		fmt.Println("Failed to create tables:", err)
+		fmt.Println("Failed to create database tables:", err)
 	}
 
 	app := fiber.New(fiber.Config{
