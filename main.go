@@ -2,10 +2,14 @@ package main
 
 import (
 	"errors"
+	"fmt"
 	"log"
+	"os"
+	"path/filepath"
 	"strconv"
 
 	"github.com/Intevel/servlicense.sh/config"
+	"github.com/Intevel/servlicense.sh/database"
 	"github.com/Intevel/servlicense.sh/types"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -21,6 +25,17 @@ func main() {
 	cfg := config.GetConfig()
 
 	log.Printf("Loaded config: %v", cfg)
+
+	db := database.Get()
+	err = db.Connect(filepath.Join("servlicense.db"))
+
+	if err != nil {
+		fmt.Println("Failed to connect to database:", err)
+		os.Exit(1)
+	}
+	if err := db.CreateTablesIfNotExist(); err != nil {
+		fmt.Println("Failed to create tables:", err)
+	}
 
 	app := fiber.New(fiber.Config{
 		AppName:           "servlicense.sh",
