@@ -1,5 +1,3 @@
-// database provides helpers for storing registered aggregators, their name, a
-// hash of their name and their ip for the pull based sync logic
 package database
 
 import (
