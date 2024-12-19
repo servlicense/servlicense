@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/Intevel/servlicense.sh/database"
+	"github.com/godruoyi/go-snowflake"
 	"github.com/google/uuid"
 	"golang.org/x/crypto/argon2"
 )
@@ -25,20 +26,23 @@ func GenerateRandomBytes(size int) ([]byte, error) {
 	return bytes, err
 }
 
-func CreateApiKey(name string, scopes []string) error {
+func CreateApiKey(name string, scopes []string) (string, string, error) {
+	// identifier for the api key
+	id := snowflake.ID()
+	idStr := fmt.Sprintf("%d", id)
 	// api key is uuid
 	apiKey := uuid.New().String()
 
 	// hash the api key
 	hash, err := HashApiKey(apiKey)
 	if err != nil {
-		return err
+		return "", "", err
 	}
 
-	// insert the api key into the database
-	err = database.Get().InsertApiKey(hash, name, scopes)
+	// insert the api key into the database, TODO replace fmt with strconv
+	err = database.Get().InsertApiKey(idStr, hash, name, scopes)
 
-	return err
+	return idStr, apiKey, err
 }
 
 func HashApiKey(apiKey string) (string, error) {

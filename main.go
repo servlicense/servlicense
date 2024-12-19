@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/base64"
 	"errors"
 	"fmt"
 	"log"
@@ -8,6 +9,7 @@ import (
 	"path/filepath"
 	"strconv"
 
+	"github.com/Intevel/servlicense.sh/auth"
 	"github.com/Intevel/servlicense.sh/config"
 	"github.com/Intevel/servlicense.sh/database"
 	"github.com/Intevel/servlicense.sh/types"
@@ -79,7 +81,19 @@ func main() {
 		})
 	})
 
+	id, key, err := auth.CreateApiKey("admin", []string{"admin"})
+
+	if err != nil {
+		fmt.Println("Failed to create api key:", err)
+		os.Exit(1)
+	}
+
+	fmt.Println("Created api key:", id, key)
+	// make completed auth header, base64 encoded "id:api_key"
+	fmt.Println(base64.StdEncoding.EncodeToString([]byte(id + ":" + key)))
+
 	log.Fatal(app.Listen(
 		cfg.Host + ":" + strconv.Itoa(cfg.Port),
 	))
+
 }
