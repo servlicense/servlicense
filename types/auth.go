@@ -9,3 +9,13 @@ const (
 	ApiKeyScopeRevokeLicense ApiKeyScope = "revoke_license"
 	ApiKeyScopeManageApiKeys ApiKeyScope = "manage_api_keys"
 )
+
+// checks if the given scopes contain the required scope
+func ContainsScope(scopes []string, required ApiKeyScope) bool {
+	for _, scope := range scopes {
+		if scope == string(required) {
+			return true
+		}
+	}
+	return false
+}

@@ -26,9 +26,15 @@ var UnauthenticatedRoutes = []Route{
 // Authenticated routes (api key check required)
 var AuthenticatedRoutes = []Route{
 	{
-		Path:    "/ping",
+		Path:    "/auth/me",
 		Method:  "GET",
-		Handler: handlers.Ping,
+		Handler: handlers.GetApiKeyInfo,
+	},
+	// Needs admin or manage_api_keys scope
+	{
+		Path:    "/auth/apikeys",
+		Method:  "GET",
+		Handler: handlers.ListApiKeys,
 	},
 }
 

@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/Intevel/servlicense.sh/database"
+	"github.com/Intevel/servlicense.sh/types"
 	"github.com/gofiber/fiber/v2"
 )
 
@@ -64,4 +65,20 @@ func AuthMiddleware() fiber.Handler {
 		c.Locals("scopes", apiKeyData.Scopes)
 		return c.Next()
 	}
+}
+
+// HasScope fiber ctx helper
+func HasScope(c *fiber.Ctx, scope string) bool {
+	scopes, ok := c.Locals("scopes").([]string)
+	if !ok || scopes == nil {
+		c.Status(fiber.StatusForbidden).JSON(types.ApiResponse{
+			Success: false,
+			Code:    fiber.StatusForbidden,
+			Message: "Forbidden, missing required scope",
+			Data:    nil,
+		})
+		return false
+	}
+
+	return types.ContainsScope(scopes, types.ApiKeyScope(scope))
 }

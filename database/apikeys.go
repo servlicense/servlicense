@@ -26,3 +26,25 @@ func (d *Database) GetApiKey(id string) (models.Apikey, error) {
 	}
 	return apikey, err
 }
+
+func (d *Database) ListApiKeys() ([]models.Apikey, error) {
+	d.mutex.Lock()
+	defer d.mutex.Unlock()
+	rows, err := d.Db.Query("SELECT id, name, scopes, created_at FROM api_keys")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var apikeys []models.Apikey
+	for rows.Next() {
+		var apikey models.Apikey
+		var scopesStr string
+		err := rows.Scan(&apikey.Id, &apikey.Name, &scopesStr, &apikey.CreatedAt)
+		if err != nil {
+			return nil, err
+		}
+		apikey.Scopes = strings.Split(scopesStr, ",")
+		apikeys = append(apikeys, apikey)
+	}
+	return apikeys, nil
+}
