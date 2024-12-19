@@ -2,13 +2,16 @@ module github.com/Intevel/servlicense.sh
 
 go 1.23.4
 
-require github.com/BurntSushi/toml v1.4.0
+require (
+	github.com/BurntSushi/toml v1.4.0
+	github.com/gofiber/fiber/v2 v2.52.5
+	github.com/google/uuid v1.6.0
+	modernc.org/sqlite v1.34.3
+)
 
 require (
 	github.com/andybalholm/brotli v1.0.5 // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
-	github.com/gofiber/fiber/v2 v2.52.5 // indirect
-	github.com/google/uuid v1.6.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/klauspost/compress v1.17.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
@@ -25,7 +28,6 @@ require (
 	modernc.org/libc v1.55.3 // indirect
 	modernc.org/mathutil v1.6.0 // indirect
 	modernc.org/memory v1.8.0 // indirect
-	modernc.org/sqlite v1.34.3 // indirect
 	modernc.org/strutil v1.2.0 // indirect
 	modernc.org/token v1.1.0 // indirect
 )
