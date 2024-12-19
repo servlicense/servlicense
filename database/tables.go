@@ -6,6 +6,7 @@ import (
 )
 
 var tableCreationSql []string = []string{
+	"PRAGMA foreign_keys = ON;",
 	"CREATE TABLE IF NOT EXISTS license (license TEXT PRIMARY KEY, active BOOLEAN, valid_until TEXT, created_at TEXT, updated_at TEXT)",
 }
 
