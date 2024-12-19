@@ -58,7 +58,7 @@ func HashApiKey(apiKey string) (string, error) {
 	b64Hash := base64.RawStdEncoding.EncodeToString(hash)
 
 	encodedHash := fmt.Sprintf("%s:%s", b64Salt, b64Hash)
-
+	fmt.Println(encodedHash)
 	return encodedHash, nil
 }
 

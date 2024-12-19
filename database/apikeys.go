@@ -19,6 +19,10 @@ func (d *Database) GetApiKey(id string) (models.Apikey, error) {
 	defer d.mutex.Unlock()
 	row := d.Db.QueryRow("SELECT * FROM api_keys WHERE id = ?", id)
 	var apikey models.Apikey
-	err := row.Scan(&apikey.Id, &apikey.ApiKey, &apikey.Name, &apikey.Scopes, &apikey.CreatedAt)
+	var scopesStr string
+	err := row.Scan(&apikey.Id, &apikey.ApiKey, &apikey.Name, &scopesStr, &apikey.CreatedAt)
+	if err == nil {
+		apikey.Scopes = strings.Split(scopesStr, ",")
+	}
 	return apikey, err
 }
