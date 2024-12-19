@@ -15,7 +15,13 @@ type Route struct {
 }
 
 // Unauthenticated routes (no JWT check)
-var UnauthenticatedRoutes = []Route{}
+var UnauthenticatedRoutes = []Route{
+	{
+		Path:    "/licenses/check/:license",
+		Method:  "GET",
+		Handler: handlers.CheckLicense,
+	},
+}
 
 // Authenticated routes (api key check required)
 var AuthenticatedRoutes = []Route{
