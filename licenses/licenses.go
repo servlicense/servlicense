@@ -53,3 +53,27 @@ func UpdateLicense(license models.License) error {
 
 	return nil
 }
+
+func CheckLicense(license string) (bool, error) {
+	licenseData, err := GetLicense(license)
+	if err != nil {
+		return false, fmt.Errorf("failed to get license: %w", err)
+	}
+
+	// Check if the license is active
+	if !licenseData.Active {
+		return false, nil
+	}
+
+	// Check if the license is still valid
+	validUntil, err := time.Parse(time.RFC3339, licenseData.ValidUntil)
+	if err != nil {
+		return false, fmt.Errorf("failed to parse valid until date: %w", err)
+	}
+
+	if time.Now().After(validUntil) {
+		return false, nil
+	}
+
+	return true, nil
+}
