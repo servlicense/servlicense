@@ -46,6 +46,15 @@
             }}</UBadge>
           </UTooltip>
         </template>
+        <template #actions-data="{ row }">
+          <UDropdown :items="actions(row)">
+            <UButton
+              color="gray"
+              variant="ghost"
+              icon="i-heroicons-ellipsis-horizontal-20-solid"
+            />
+          </UDropdown>
+        </template>
       </UTable>
       <div
         class="flex justify-end px-3 py-3.5 border-t border-gray-200 dark:border-gray-700"
@@ -77,6 +86,7 @@ const columns = [
   { key: "valid_until", label: "Valid Until" },
   { key: "created_at", label: "Created At" },
   { key: "updated_at", label: "Updated At" },
+  { key: "actions", label: "Actions" },
 ];
 const page = ref(1);
 const pageCount = 7;
@@ -97,6 +107,35 @@ onMounted(async () => {
 
   console.log(licenses.value);
 });
+
+const toast = useToast();
+const actions = (row: License) => [
+  [
+    {
+      label: "Show raw data",
+      icon: "i-heroicons-document-text",
+    },
+    {
+      label: "Copy License",
+      icon: "i-heroicons-finger-print",
+      click: () => {
+        navigator.clipboard.writeText(row.license);
+        toast.add({
+          title: "License copied",
+          description: "The license has been copied to your clipboard",
+          icon: "i-heroicons-finger-print",
+          timeout: 3000,
+        });
+      },
+    },
+  ],
+  [
+    {
+      label: "Revoke License",
+      icon: "i-heroicons-trash-20-solid",
+    },
+  ],
+];
 
 const rows = computed(() => {
   return licenses.value.slice(
