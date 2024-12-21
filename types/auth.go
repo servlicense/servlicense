@@ -2,6 +2,18 @@ package types
 
 type ApiKeyScope string
 
+// checks if the current scope is contained in scopes
+func (k ApiKeyScope) InScopes(scopes []string) bool {
+	asStr := string(k)
+	for _, scope := range scopes {
+		if scope == asStr {
+			return true
+		}
+	}
+	return false
+
+}
+
 // ApiKeyScope constants
 const (
 	ApiKeyScopeAdmin         ApiKeyScope = "admin"
@@ -10,13 +22,3 @@ const (
 	ApiKeyScopeRevokeLicense ApiKeyScope = "revoke_license"
 	ApiKeyScopeManageApiKeys ApiKeyScope = "manage_api_keys"
 )
-
-// checks if the given scopes contain the required scope
-func ContainsScope(scopes []string, required ApiKeyScope) bool {
-	for _, scope := range scopes {
-		if scope == string(required) {
-			return true
-		}
-	}
-	return false
-}

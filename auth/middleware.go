@@ -80,5 +80,5 @@ func HasScope(c *fiber.Ctx, scope string) bool {
 		return false
 	}
 
-	return types.ContainsScope(scopes, types.ApiKeyScope(scope))
+	return types.ApiKeyScope(scope).InScopes(scopes)
 }

@@ -29,7 +29,12 @@ func main() {
 	log.Printf("Loaded config: %v", cfg)
 
 	db := database.Get()
-	err = db.Connect(filepath.Join("servlicense.db"))
+	cwd, err := os.Getwd()
+	if err != nil {
+		log.Printf("Failed to get cwd: %w, setting to '.'", err)
+		cwd = "."
+	}
+	err = db.Connect(filepath.Join(cwd, "servlicense.db"))
 
 	if err != nil {
 		fmt.Println("Failed to connect to database:", err)

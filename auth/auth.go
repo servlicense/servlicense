@@ -5,6 +5,7 @@ import (
 	"crypto/rand"
 	"encoding/base64"
 	"fmt"
+	"strconv"
 	"strings"
 
 	"github.com/Intevel/servlicense.sh/database"
@@ -29,7 +30,7 @@ func GenerateRandomBytes(size int) ([]byte, error) {
 func CreateApiKey(name string, scopes []string) (string, string, error) {
 	// identifier for the api key
 	id := snowflake.ID()
-	idStr := fmt.Sprintf("%d", id)
+	idStr := strconv.FormatUint(id, 10)
 	// api key is uuid
 	apiKey := uuid.New().String()
 
@@ -57,7 +58,13 @@ func HashApiKey(apiKey string) (string, error) {
 	b64Salt := base64.RawStdEncoding.EncodeToString(salt)
 	b64Hash := base64.RawStdEncoding.EncodeToString(hash)
 
-	encodedHash := fmt.Sprintf("%s:%s", b64Salt, b64Hash)
+	// this could also be str+':'+str, but i think this should be faster
+	b := strings.Builder{}
+	b.WriteString(b64Salt)
+	b.WriteRune(':')
+	b.WriteString(b64Hash)
+	encodedHash := b.String()
+
 	fmt.Println(encodedHash)
 	return encodedHash, nil
 }
