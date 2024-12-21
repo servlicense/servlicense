@@ -77,6 +77,7 @@
 <script setup lang="ts">
 import { useServlicenseUser } from "~/util/auth";
 import { internalFetch } from "~/util/fetch";
+import { useStorage } from "@vueuse/core";
 
 interface License {
   license: string;
@@ -97,9 +98,8 @@ const columns = [
 const page = ref(1);
 const pageCount = 7;
 
-const hideText = ref(false);
+const hideText = useStorage("hideText", false);
 
-const user = useServlicenseUser();
 const licenses = ref<License[]>([]);
 
 onMounted(async () => {

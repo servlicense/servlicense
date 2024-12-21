@@ -22,7 +22,6 @@
             icon="i-heroicons-arrow-right-end-on-rectangle"
             color="gray"
             active-class="!bg-primary-400 !text-gray-900"
-            to="/settings"
             variant="solid"
           />
         </li>
@@ -106,6 +105,6 @@ const isMenuOpen = ref(false);
 
 const links = [
   { label: "Licenses", to: "/" },
-  { label: "API Keys", to: "/aggregators" },
+  { label: "API Keys", to: "/api-keys" },
 ];
 </script>

@@ -67,7 +67,7 @@ func ListApiKeys(c *fiber.Ctx) error {
 		Code:    200,
 		Message: "Successfully listed api keys",
 		Data: fiber.Map{
-			"api_keys": apiKeys,
+			"apiKeys": apiKeys,
 		},
 	})
 
