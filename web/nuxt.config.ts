@@ -8,4 +8,12 @@ export default defineNuxtConfig({
     preference: "light",
     storageKey: "colormode-servlicense",
   },
+  runtimeConfig: {
+    public: {
+      server:
+        process.env.NODE_ENV === "production"
+          ? "/api"
+          : "http://localhost:3000",
+    },
+  },
 });

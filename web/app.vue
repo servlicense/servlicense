@@ -1,3 +1,4 @@
 <template>
+  <UNotifications />
   <NuxtPage />
 </template>

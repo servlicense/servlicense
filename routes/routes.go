@@ -36,6 +36,17 @@ var AuthenticatedRoutes = []Route{
 		Method:  "GET",
 		Handler: handlers.ListApiKeys,
 	},
+	{
+		Path:    "/auth/apikeys",
+		Method:  "POST",
+		Handler: handlers.CreateApiKey,
+	},
+	// Needs admin or list_licenses scope
+	{
+		Path:    "/licenses",
+		Method:  "GET",
+		Handler: handlers.ListLicenses,
+	},
 }
 
 func RegisterRoutes(app *fiber.App, groupPrefix string, routes ...Route) {

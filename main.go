@@ -98,6 +98,17 @@ func main() {
 	// // make completed auth header, base64 encoded "id:api_key"
 	// fmt.Println(base64.StdEncoding.EncodeToString([]byte(id + ":" + key)))
 
+	// call fifteen times create a license for test data
+
+	// for i := 0; i < 15; i++ {
+	// 	license, err := licenses.CreateLicense("")
+	// 	if err != nil {
+	// 		fmt.Println("Failed to create license:", err)
+	// 		os.Exit(1)
+	// 	}
+	// 	fmt.Println("Created license:", license)
+	// }
+
 	log.Fatal(app.Listen(
 		cfg.Host + ":" + strconv.Itoa(cfg.Port),
 	))

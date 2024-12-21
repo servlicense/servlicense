@@ -24,3 +24,23 @@ func (d *Database) UpdateLicense(license models.License) error {
 	_, err := d.Db.Exec("UPDATE license SET active = ?, valid_until = ?, updated_at = ? WHERE license = ?", license.Active, license.ValidUntil, license.UpdatedAt, license.License)
 	return err
 }
+
+func (d *Database) ListLicenses() ([]models.License, error) {
+	d.mutex.Lock()
+	defer d.mutex.Unlock()
+	rows, err := d.Db.Query("SELECT * FROM license")
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	var licenses []models.License
+	for rows.Next() {
+		var l models.License
+		err := rows.Scan(&l.License, &l.Active, &l.ValidUntil, &l.CreatedAt, &l.UpdatedAt)
+		if err != nil {
+			return nil, err
+		}
+		licenses = append(licenses, l)
+	}
+	return licenses, nil
+}

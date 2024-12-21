@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { z } from "zod";
 import type { FormSubmitEvent } from "#ui/types";
+import { useServlicenseAuthentication } from "~/util/auth";
 
 const schema = z.object({
   identifier: z.string(),
@@ -14,15 +15,30 @@ const state = reactive({
   apiKey: undefined,
 });
 
+const { login } = useServlicenseAuthentication();
+const toast = useToast();
+const router = useRouter();
+
 async function onSubmit(event: FormSubmitEvent<Schema>) {
-  // Do something with data
-  console.log(event.data);
+  console.log("onSubmit", event.data);
+  try {
+    await login(event.data.identifier, event.data.apiKey);
+    router.push("/");
+    toast.add({
+      title: "Welcome back to Servlicense!",
+      description: "You have successfully logged in.",
+      icon: "i-heroicons-lock-open",
+      timeout: 5000,
+    });
+  } catch (e: unknown) {
+    console.log(e);
+  }
 }
 </script>
 
 <template>
   <UContainer class="flex h-screen justify-center items-center">
-    <UCard class="w-1/2">
+    <UCard class="w-full md:w-1/2">
       <template #header>
         <h1 class="font-bold">Servlicense - Client Login</h1>
       </template>

@@ -77,3 +77,12 @@ func CheckLicense(license string) (bool, error) {
 
 	return true, nil
 }
+
+func ListLicenses() ([]models.License, error) {
+	licenses, err := database.Get().ListLicenses()
+	if err != nil {
+		return nil, fmt.Errorf("failed to list licenses: %w", err)
+	}
+
+	return licenses, nil
+}
