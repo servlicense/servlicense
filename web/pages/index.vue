@@ -39,6 +39,12 @@
             }}</span></span
           >
         </template>
+        <template #valid_until-data="{ row }">
+          <span v-if="row.valid_until && row.active !== false">{{
+            row.valid_until
+          }}</span>
+          <span v-else>—</span>
+        </template>
         <template #status-data="{ row }">
           <UTooltip text="x" :popper="{ arrow: true, placement: 'top' }">
             <UBadge :color="row.active ? 'primary' : 'gray'" variant="solid">{{
@@ -145,8 +151,7 @@ const rows = computed(() => {
 });
 
 definePageMeta({
-  title: "Home Page",
-  description: "This is the home page",
+  title: "Licenses - Servlicense",
   middleware: "auth",
 });
 </script>
