@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/Intevel/servlicense.sh/database"
-	"github.com/Intevel/servlicense.sh/models"
 	"github.com/google/uuid"
+	"github.com/servlicense/servlicense/api/database"
+	"github.com/servlicense/servlicense/api/models"
 )
 
 func GetLicense(license string) (models.License, error) {

@@ -8,10 +8,10 @@ import (
 	"path/filepath"
 	"strconv"
 
-	"github.com/Intevel/servlicense.sh/config"
-	"github.com/Intevel/servlicense.sh/database"
-	"github.com/Intevel/servlicense.sh/routes"
-	"github.com/Intevel/servlicense.sh/types"
+	"github.com/servlicense/servlicense/api/config"
+	"github.com/servlicense/servlicense/api/database"
+	"github.com/servlicense/servlicense/api/routes"
+	"github.com/servlicense/servlicense/api/types"
 
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
@@ -31,7 +31,7 @@ func main() {
 	db := database.Get()
 	cwd, err := os.Getwd()
 	if err != nil {
-		log.Printf("Failed to get cwd: %w, setting to '.'", err)
+		log.Printf("Failed to get cwd: %q, setting to '.'", err)
 		cwd = "."
 	}
 	err = db.Connect(filepath.Join(cwd, "servlicense.db"))

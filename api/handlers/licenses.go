@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"github.com/Intevel/servlicense.sh/auth"
-	"github.com/Intevel/servlicense.sh/licenses"
-	"github.com/Intevel/servlicense.sh/types"
 	"github.com/gofiber/fiber/v2"
+	"github.com/servlicense/servlicense/api/auth"
+	"github.com/servlicense/servlicense/api/licenses"
+	"github.com/servlicense/servlicense/api/types"
 )
 
 func CheckLicense(c *fiber.Ctx) error {

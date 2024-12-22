@@ -1,6 +1,6 @@
 package database
 
-import "github.com/Intevel/servlicense.sh/models"
+import "github.com/servlicense/servlicense/api/models"
 
 func (d *Database) GetLicense(license string) (models.License, error) {
 	d.mutex.Lock()

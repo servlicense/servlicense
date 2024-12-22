@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"github.com/Intevel/servlicense.sh/auth"
-	"github.com/Intevel/servlicense.sh/database"
-	"github.com/Intevel/servlicense.sh/types"
 	"github.com/gofiber/fiber/v2"
+	"github.com/servlicense/servlicense/api/auth"
+	"github.com/servlicense/servlicense/api/database"
+	"github.com/servlicense/servlicense/api/types"
 )
 
 func GetApiKeyInfo(c *fiber.Ctx) error {

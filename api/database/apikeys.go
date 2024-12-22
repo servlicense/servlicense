@@ -3,7 +3,7 @@ package database
 import (
 	"strings"
 
-	"github.com/Intevel/servlicense.sh/models"
+	"github.com/servlicense/servlicense/api/models"
 )
 
 func (d *Database) InsertApiKey(id string, apiKey string, name string, scopes []string) error {

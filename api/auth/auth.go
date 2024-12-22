@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/Intevel/servlicense.sh/database"
 	"github.com/godruoyi/go-snowflake"
 	"github.com/google/uuid"
+	"github.com/servlicense/servlicense/api/database"
 	"golang.org/x/crypto/argon2"
 )
 

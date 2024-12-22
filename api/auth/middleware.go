@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/Intevel/servlicense.sh/database"
-	"github.com/Intevel/servlicense.sh/types"
 	"github.com/gofiber/fiber/v2"
+	"github.com/servlicense/servlicense/api/database"
+	"github.com/servlicense/servlicense/api/types"
 )
 
 // AuthMiddleware is a Fiber middleware that checks for a valid API key in the Authorization header

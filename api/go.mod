@@ -1,4 +1,4 @@
-module github.com/Intevel/servlicense.sh
+module github.com/servlicense/servlicense/api
 
 go 1.23.4
 

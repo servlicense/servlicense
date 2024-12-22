@@ -3,9 +3,9 @@ package routes
 import (
 	"log"
 
-	"github.com/Intevel/servlicense.sh/auth"
-	"github.com/Intevel/servlicense.sh/handlers"
 	"github.com/gofiber/fiber/v2"
+	"github.com/servlicense/servlicense/api/auth"
+	"github.com/servlicense/servlicense/api/handlers"
 )
 
 type Route struct {
