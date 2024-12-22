@@ -35,8 +35,7 @@ func main() {
 		log.Printf("Failed to get cwd: %q, setting to '.'", err)
 		cwd = "."
 	}
-	log.Printf("Current working directory: %s", filepath.Join(cwd, "servlicense.db"))
-	err = db.Connect(filepath.Join(cwd, "servlicense.db"))
+	err = db.Connect(filepath.Join(cwd, "db", "servlicense.db"))
 
 	if err != nil {
 		fmt.Println("Failed to connect to database:", err)
@@ -81,10 +80,10 @@ func main() {
 	}))
 
 	log.Println("Registering unauthenticated routes...")
-	routes.RegisterRoutes(app, "", routes.UnauthenticatedRoutes...) // No prefix for the unauthenticated routes
+	routes.RegisterRoutes(app, "/api", routes.UnauthenticatedRoutes...) // No prefix for the unauthenticated routes
 
 	log.Println("Registering authenticated routes...")
-	routes.RegisterAuthenticatedRoutes(app, "", routes.AuthenticatedRoutes...) // No prefix for the authenticated routes
+	routes.RegisterAuthenticatedRoutes(app, "/api", routes.AuthenticatedRoutes...) // No prefix for the authenticated routes
 
 	app.Use(func(c *fiber.Ctx) error {
 		return proxy.Do(c, "http://localhost:4000"+c.OriginalURL())

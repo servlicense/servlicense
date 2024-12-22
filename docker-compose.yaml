@@ -1,5 +1,10 @@
 services:
-  servlicense:
-    build: .
-    ports:
-      - "3000:3000"
+    servlicense:
+        build: .
+        ports:
+            - "3000:3000"
+        volumes:
+            - db:/api/db/
+
+volumes:
+    db:

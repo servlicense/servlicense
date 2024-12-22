@@ -14,7 +14,7 @@ export default defineNuxtConfig({
 	},
 	runtimeConfig: {
 		public: {
-			server: process.env.NODE_ENV === "production" ? "" : "http://localhost:3000",
+			server: process.env.NODE_ENV === "production" ? "/api" : "http://localhost:3000/api",
 		},
 	},
 });
