@@ -16,6 +16,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/fiber/v2/middleware/proxy"
 )
 
 func main() {
@@ -34,6 +35,7 @@ func main() {
 		log.Printf("Failed to get cwd: %q, setting to '.'", err)
 		cwd = "."
 	}
+	log.Printf("Current working directory: %s", filepath.Join(cwd, "servlicense.db"))
 	err = db.Connect(filepath.Join(cwd, "servlicense.db"))
 
 	if err != nil {
@@ -85,11 +87,7 @@ func main() {
 	routes.RegisterAuthenticatedRoutes(app, "", routes.AuthenticatedRoutes...) // No prefix for the authenticated routes
 
 	app.Use(func(c *fiber.Ctx) error {
-		return c.Status(404).JSON(types.ApiResponse{
-			Code:    fiber.ErrNotFound.Code,
-			Message: fiber.ErrNotFound.Message,
-			Success: false,
-		})
+		return proxy.Do(c, "http://localhost:4000"+c.OriginalURL())
 	})
 
 	// id, key, err := auth.CreateApiKey("admin", []string{"admin"})

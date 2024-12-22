@@ -30,7 +30,7 @@ func (d *Database) Close() error {
 }
 
 func (d *Database) Connect(path string) error {
-	if path[0] != ':' {
+	if path[0] != ':' && path[0] != '/' {
 		currentDir, err := os.Getwd()
 		if err != nil {
 			return fmt.Errorf("Failed to get current directory: %w", err)
