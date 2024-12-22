@@ -1,11 +1,11 @@
 services:
-    servlicense:
-        build: .
-        ports:
-            - "3000:3000"
-        volumes:
-            - db:/api/db/
-            - ./api/config.toml:/api/config.toml
+  servlicense:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - db:/api/db/
+      - ./api/config.toml:/api/config.toml
 
 volumes:
-    db:
+  db:

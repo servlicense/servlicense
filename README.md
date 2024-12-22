@@ -4,7 +4,7 @@ A minimalistic, fast, and easy-to-deploy license server written in Go.
 
 ## Introduction
 
-Servlicense is designed to simplify the integration of licenses into software; the server has a minimalistic design. 
+Servlicense is designed to simplify the integration of licenses into software; the server has a minimalistic design.
 
 ## Deployment
 
