@@ -80,10 +80,10 @@ func main() {
 	}))
 
 	log.Println("Registering unauthenticated routes...")
-	routes.RegisterRoutes(app, "/api", routes.UnauthenticatedRoutes...) // No prefix for the unauthenticated routes
+	routes.RegisterRoutes(app, "/api", routes.UnauthenticatedRoutes...)
 
 	log.Println("Registering authenticated routes...")
-	routes.RegisterAuthenticatedRoutes(app, "/api", routes.AuthenticatedRoutes...) // No prefix for the authenticated routes
+	routes.RegisterAuthenticatedRoutes(app, "/api", routes.AuthenticatedRoutes...)
 
 	app.Use(func(c *fiber.Ctx) error {
 		return proxy.Do(c, "http://localhost:4000"+c.OriginalURL())
