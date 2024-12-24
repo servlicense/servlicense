@@ -9,6 +9,7 @@ import (
 	"github.com/servlicense/servlicense/api/config"
 )
 
+// TODO: check which notificaiton is allowed
 // SendNotification sends an email notification with the specified subject and message
 func SendNotification(subject string, message string) error {
 	cfg := config.GetConfig()
