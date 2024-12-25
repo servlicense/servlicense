@@ -59,7 +59,7 @@ func RegisterRoutes(app *fiber.App, groupPrefix string, routes ...Route) {
 }
 
 func RegisterAuthenticatedRoutes(app *fiber.App, groupPrefix string, routes ...Route) {
-	group := app.Group(groupPrefix) // Authenticated group with JWT middleware
+	group := app.Group(groupPrefix) // Authenticated group with middleware
 	for _, route := range routes {
 		group.Add(route.Method, route.Path, auth.AuthMiddleware(), route.Handler)
 		log.Printf("Registered authenticated route: [%s] %s%s\n", route.Method, groupPrefix, route.Path)
