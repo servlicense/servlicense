@@ -14,11 +14,11 @@ func (d *Database) InsertApiKey(id string, apiKey string, name string, scopes []
 	return err
 }
 
-func (d *Database) GetApiKey(id string) (models.Apikey, error) {
+func (d *Database) GetApiKey(id string) (models.ApiKey, error) {
 	d.mutex.Lock()
 	defer d.mutex.Unlock()
 	row := d.Db.QueryRow("SELECT * FROM api_keys WHERE id = ?", id)
-	var apikey models.Apikey
+	var apikey models.ApiKey
 	var scopesStr string
 	err := row.Scan(&apikey.Id, &apikey.ApiKey, &apikey.Name, &scopesStr, &apikey.CreatedAt)
 	if err == nil {
@@ -27,7 +27,7 @@ func (d *Database) GetApiKey(id string) (models.Apikey, error) {
 	return apikey, err
 }
 
-func (d *Database) ListApiKeys() ([]models.Apikey, error) {
+func (d *Database) ListApiKeys() ([]models.ApiKey, error) {
 	d.mutex.Lock()
 	defer d.mutex.Unlock()
 	rows, err := d.Db.Query("SELECT id, name, scopes, created_at FROM api_keys")
@@ -35,9 +35,9 @@ func (d *Database) ListApiKeys() ([]models.Apikey, error) {
 		return nil, err
 	}
 	defer rows.Close()
-	var apikeys []models.Apikey
+	var apikeys []models.ApiKey
 	for rows.Next() {
-		var apikey models.Apikey
+		var apikey models.ApiKey
 		var scopesStr string
 		err := rows.Scan(&apikey.Id, &apikey.Name, &scopesStr, &apikey.CreatedAt)
 		if err != nil {

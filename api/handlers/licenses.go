@@ -55,7 +55,18 @@ func ListLicenses(c *fiber.Ctx) error {
 		})
 	}
 
-	licenses, err := licenses.ListLicenses()
+	appID := c.Params("app_id")
+
+	if appID == "" {
+		return c.Status(fiber.StatusBadRequest).JSON(types.ApiResponse{
+			Success: false,
+			Code:    fiber.StatusBadRequest,
+			Message: "Missing app_id",
+			Data:    nil,
+		})
+	}
+
+	licenses, err := licenses.ListLicenses(appID)
 
 	if err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(types.ApiResponse{

@@ -7,9 +7,32 @@ import (
 
 var tableCreationSql []string = []string{
 	"PRAGMA foreign_keys = ON;",
-	"CREATE TABLE IF NOT EXISTS license (license TEXT PRIMARY KEY, active BOOLEAN, valid_until TEXT, created_at TEXT, updated_at TEXT)",
-	// id is api key identifier, api_key is the hashed api key
-	"CREATE TABLE IF NOT EXISTS api_keys (id TEXT PRIMARY KEY, api_key TEXT NOT NULL UNIQUE, name VARCHAR(255) NOT NULL, scopes TEXT NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP);",
+
+	`CREATE TABLE IF NOT EXISTS application (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL UNIQUE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );`,
+
+	`CREATE TABLE IF NOT EXISTS license (
+        license TEXT PRIMARY KEY,
+        app_id INTEGER NOT NULL,
+        active BOOLEAN,
+        valid_until TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (app_id) REFERENCES application (id) ON DELETE CASCADE
+    );`,
+
+	`CREATE TABLE IF NOT EXISTS api_keys (
+        id TEXT PRIMARY KEY,
+        api_key TEXT NOT NULL UNIQUE,
+        name VARCHAR(255) NOT NULL,
+        scopes TEXT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    );`,
 }
 
 func (d *Database) CreateTablesIfNotExist() error {
