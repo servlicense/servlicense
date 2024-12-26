@@ -43,7 +43,7 @@ var AuthenticatedRoutes = []Route{
 	},
 	// Needs admin or list_licenses scope
 	{
-		Path:    "/licenses",
+		Path:    "/:app_id/licenses",
 		Method:  "GET",
 		Handler: handlers.ListLicenses,
 	},
